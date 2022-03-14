@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+
 export const List = (props) => {
     
 const [listData, setListData]=useState(props.mockList)
@@ -17,6 +18,7 @@ const [listData, setListData]=useState(props.mockList)
                 
                 )
             })}
+            <button onClick={()=>props.addList()}>Add Task</button>
         </ul>
     </>
     

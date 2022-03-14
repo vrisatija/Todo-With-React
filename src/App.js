@@ -3,6 +3,7 @@ import './App.css';
 import {List} from './components/List'
 import {Task} from './components/Task'
 import React,{useState} from 'react';
+import { CreateTask } from './components/CreateTask';
 
 function App() {
   const mockList={
@@ -36,26 +37,38 @@ function App() {
     setPage('task')
     setSelectedTask(eachTask)
   }
+  const onAddList=()=>{
+    setPage('task2')
+    setSelectedTask('')
+  }
   
   const onSave=(taskItem)=>{
     console.log(taskItem.title)
+    let f=0;
     const updateMockList={
       name: listData.name,
       tasks: listData.tasks.map((eachTask,index)=>{
         if(eachTask.id===taskItem.id){
+          f=1;
           return taskItem 
         }else{
           return eachTask
         }
-      })
+      }) 
     }
+    if(f===0)
+    updateMockList.tasks.push(taskItem)
     setListData(updateMockList);
     setPage('list')
   }
   return (
-    <div className="App">
-      {page==='list'?<List listData={listData} onClick={onEdit}/>:<Task selectedTask={selectedTask} onSave={onSave} />}
-    </div>
+    <>
+      <div className="App">
+      {page==='list'?<List listData={listData} onClick={onEdit} addList={onAddList}/>:<Task selectedTask={selectedTask} onSave={onSave} page={page} listData={listData}/>}
+      </div>
+      
+    </>
+    
   );
 }
 
